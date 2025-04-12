@@ -23,7 +23,7 @@ def go(message):
 
 
 @bot.message_handler(commands=['promo'])
-def go(message):
+def promo(message):
     if message.text.split()[1] == "QT4FX5R":
         bot.send_message(message.chat.id, "Как ты смог получить это сообщение? Шанс этого 1 к 1000!!!")
 
