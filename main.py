@@ -23,6 +23,24 @@ def go(message):
         bot.reply_to(message, "Ты уже создал себе покемона")
 
 
+@bot.message_handler(commands=["heal"])
+def heal(message):
+    Pokemon.pokemons[message.from_user.username].current_hp = Pokemon.pokemons[message.from_user.username].normal_hp
+    bot.send_message(message.chat.id, "Ты вылечил своего покемона!")
+
+
+@bot.message_handler(commands=['attack'])
+def attack(message):
+    username = message.text.split()[1]
+    if username in Pokemon.pokemons.keys() and message.from_user.username in Pokemon.pokemons.keys():
+        enemy = Pokemon.pokemons[username]
+        pokemon = Pokemon.pokemons[message.from_user.username]
+        result = pokemon.attack(enemy)
+        bot.send_message(message.chat.id, result)
+    else:
+        bot.send_message(message.chat.id, "У этого человека нет покемона!")
+
+
 @bot.message_handler(commands=['promo'])
 def promo(message):
     if message.text.split()[1] == "QT4FX5R":
