@@ -23,6 +23,12 @@ def go(message):
         bot.reply_to(message, "Ты уже создал себе покемона")
 
 
+@bot.message_handler(commands=["info"])
+def info(message):
+    if message.from_user.username in Pokemon.pokemons.keys():
+        pok = Pokemon.pokemons[message.from_user.username]
+        bot.reply_to(message, pok.info())
+
 @bot.message_handler(commands=["heal"])
 def heal(message):
     Pokemon.pokemons[message.from_user.username].current_hp = Pokemon.pokemons[message.from_user.username].normal_hp
